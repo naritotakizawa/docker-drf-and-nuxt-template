@@ -6,6 +6,8 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   nginx:
     image: nginx:1.13
@@ -22,3 +24,4 @@ services:
 volumes:
   static:
   media:
+  pgdata:

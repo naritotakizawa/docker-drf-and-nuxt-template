@@ -23,6 +23,8 @@ backend 以下に Django プロジェクトが、frontend 以下に Nuxt のプ�
 
 ### 開発環境
 
+Django は`manage.py runserver`、Nuxt.js は`npm run dev`で動作させているので、エラーなどを確認できますし、ホットリロードも反映されます。
+
 ```
 docker-compose -f docker-compose.yml -f dev.yml build
 docker-compose -f docker-compose.yml -f dev.yml up
@@ -33,6 +35,8 @@ docker-compose -f docker-compose.yml -f dev.yml up
 ページの表示は`http://127.0.0.1`で行えます(:8000 などは不要)。
 
 ### 本番環境
+
+Django は`gunicorn ...`、Nuxt.js はビルド後に`npm run start`で動作させています。
 
 ```
 docker-compose -f docker-compose.yml -f prod.yml build
