@@ -1,0 +1,29 @@
+version: "3"
+services:
+  backend:
+    build: ./backend
+    command: bash -c "python manage.py migrate && python manage.py collectstatic --no-input --clear && python manage.py runserver  0.0.0.0:8000"
+    expose:
+      - "8000"
+    volumes:
+      - ./backend:/code
+      - static:/code/static_root
+      - media:/code/media
+    environment:
+      - SUPERUSER_NAME=admin
+      - SUPERUSER_PASSWORD=admin123
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - AXIOS_BASEURL=http://backend:8000/api
+        - AXIOS_BROWSER_BASEURL=/api
+    expose:
+      - "3000"
+    command: "npm run dev"
+    environment:
+      - AXIOS_BASEURL=http://backend:8000/api
+      - AXIOS_BROWSER_BASEURL=/api
+    volumes:
+      - ./frontend:/code
