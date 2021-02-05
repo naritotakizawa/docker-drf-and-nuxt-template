@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'djoser',
-    'axes',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +49,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -129,20 +126,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'register.User'
-
-AUTHENTICATION_BACKENDS = [
-    'axes.backends.AxesBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
-AXES_META_PRECEDENCE_ORDER = [
-    'HTTP_X_FORWARDED_FOR',
-    'REMOTE_ADDR',
-]
-
-DJOSER = {
-    'PERMISSIONS': {
-        'user_list': ['rest_framework.permissions.IsAuthenticatedOrReadOnly'],
-    },
-
-    'HIDE_USERS': False
-}

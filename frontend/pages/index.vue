@@ -1,7 +1,13 @@
 <template>
   <div>
-    <h2 v-for="user in users" :key="user.id">{{ user.username }}</h2>
-    <button @click="$fetch">リロード</button>
+    <p v-if="$fetchState.pending" class="loading-wrapper">
+      <span class="loading"></span>
+    </p>
+    <p v-else-if="$fetchState.error">何かエラーが起きています。</p>
+    <div else>
+      <h1>{{ response.message }}</h1>
+      <button @click="$fetch">リロード</button>
+    </div>
   </div>
 </template>
 
@@ -9,11 +15,11 @@
 export default {
   data() {
     return {
-      users: [],
+      response: null,
     }
   },
   async fetch() {
-    this.users = await this.$axios.$get('/auth/users/')
+    this.response = await this.$axios.$get('/hello/')
   },
 }
 </script>
