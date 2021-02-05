@@ -25,12 +25,14 @@ backend 以下に Django プロジェクトが、frontend 以下に Nuxt のプ�
 
 Django は`manage.py runserver`、Nuxt.js は`npm run dev`で動作させているので、エラーなどを確認できますし、ホットリロードも反映されます。
 
+次のコマンドで起動できます。
+
 ```
 docker-compose -f docker-compose.yml -f dev.yml build
 docker-compose -f docker-compose.yml -f dev.yml up
 ```
 
-標準では、admin admin123 でスーパーユーザーが作成されます。書き換えたい場合は、dev.yml や prod.yml の`SUPERUSER_NAME`、`SUPERUSER_PASSWORD`を書き換えてください。
+標準の動作では、admin admin123 でスーパーユーザーが作成されます。書き換えたい場合は、dev.yml や prod.yml の`SUPERUSER_NAME`、`SUPERUSER_PASSWORD`を書き換えてください。
 
 ページの表示は`http://127.0.0.1`で行えます(:8000 などは不要)。
 
@@ -38,11 +40,25 @@ docker-compose -f docker-compose.yml -f dev.yml up
 
 Django は`gunicorn ...`、Nuxt.js はビルド後に`npm run start`で動作させています。
 
+prod.ymlを編集します。
+
+```
+nano prod.yml
+```
+
+ALLOWED_HOSTSの部分を書き換えます。
+
+```
+ALLOWED_HOSTS=127.0.0.1
+↓
+ALLOWED_HOSTS=サーバーのIP、又はドメイン
+```
+
+あとは単純に起動できます。
+
 ```
 docker-compose -f docker-compose.yml -f prod.yml build
 docker-compose -f docker-compose.yml -f prod.yml up
 ```
-
-prod.yml の `ALLOWED_HOSTS` に IP アドレスかドメイン名を入れてください。
 
 ページの表示は`http://IPかドメイン`で行えます(:8000 などは不要)。
